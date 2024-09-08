@@ -1,6 +1,6 @@
 import sys
 import pygame
-from spaceship import Spaceship
+from game import Game
 
 pygame.init()
 
@@ -14,9 +14,8 @@ pygame.display.set_caption("Python Space Invaderz")
 
 clock = pygame.time.Clock()
 
-spaceship = Spaceship(screen_width, screen_height)
-spaceship_group = pygame.sprite.GroupSingle()
-spaceship_group.add(spaceship)
+game = Game(screen_width,screen_height)
+
 
 while True:
 
@@ -26,10 +25,14 @@ while True:
             sys.exit()
 
     # update spaceship group
-    spaceship_group.update()
+    game.spaceship_group.update()
+
     # Drawing
     screen.fill(GREY)
-    spaceship_group.draw(screen)
+    game.spaceship_group.draw(screen)
+    game.spaceship_group.sprite.lasers_group.draw(screen)
+    for obstacle in game.obstacles:
+        obstacle.blocks_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)
