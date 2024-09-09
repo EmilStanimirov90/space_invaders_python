@@ -26,7 +26,8 @@ class Spaceship(pygame.sprite.Sprite):
 
         if keys[pygame.K_f] and self.laser_ready_fire:
             self.laser_ready_fire = False
-            laser = Laser(self.rect.center, 5, self.screen_height)
+            speed = 5
+            laser = Laser(self.rect.center, speed, self.screen_height)
             self.lasers_group.add(laser)
             self.laser_time = pygame.time.get_ticks()
 
@@ -47,3 +48,7 @@ class Spaceship(pygame.sprite.Sprite):
             current_time = pygame.time.get_ticks()
             if current_time - self.laser_time >= self.laser_delay:
                 self.laser_ready_fire = True
+
+    def reset(self):
+        self.rect = self.image.get_rect(midbottom =(self.screen_width/2, self.screen_height))
+        self.lasers_group.empty()
