@@ -2,10 +2,10 @@ import pygame
 
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, position, speed, screen_height, color):
+    def __init__(self, position, speed, screen_height, laser_type):
         super().__init__()
-        self.image = pygame.Surface((4, 15))
-        self.image.fill(color)
+        path = f"graphics/laser_{laser_type}.png"
+        self.image = pygame.image.load(path)
         self.rect = self.image.get_rect(center=position)
         self.speed = speed
         self.screen_height = screen_height

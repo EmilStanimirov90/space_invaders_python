@@ -18,7 +18,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_speed = 5
         self.laser_strength = 1
         self.laser_count = 1
-        self.laser_color = (138, 255, 161)
+        self.laser_type = 1
 
         self.laser_sound = pygame.mixer.Sound("Sounds/plasma-shot-01.flac")
 
@@ -37,25 +37,25 @@ class Spaceship(pygame.sprite.Sprite):
             if self.laser_count == 1:
 
                 for i in range(self.laser_strength):
-                    laser = Laser(self.rect.center, self.laser_speed, self.screen_height, self.laser_color)
+                    laser = Laser(self.rect.center, self.laser_speed, self.screen_height, 1)
                     self.lasers_group.add(laser)
 
             elif self.laser_count == 2:
 
                 for i in range(self.laser_strength):
-                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_color)
+                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_type)
                     self.lasers_group.add(laser2)
-                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_color)
+                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_type)
                     self.lasers_group.add(laser3)
 
             elif self.laser_count == 3:
 
                 for i in range(self.laser_strength):
-                    laser = Laser(self.rect.midtop, self.laser_speed, self.screen_height, self.laser_color)
+                    laser = Laser(self.rect.midtop, self.laser_speed, self.screen_height, self.laser_type)
                     self.lasers_group.add(laser)
-                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_color)
+                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_type)
                     self.lasers_group.add(laser2)
-                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_color)
+                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_type)
                     self.lasers_group.add(laser3)
 
             self.laser_time = pygame.time.get_ticks()
@@ -88,7 +88,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_speed = 5
         self.laser_strength = 1
         self.laser_count = 1
-        self.laser_color = (138, 255, 161)
+        self.laser_type = (138, 255, 161)
 
     def increase_fire_speed(self):
         if self.laser_delay > 40:
