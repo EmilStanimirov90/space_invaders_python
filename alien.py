@@ -33,3 +33,20 @@ class MysteryShip(pygame.sprite.Sprite):
             self.kill()
         elif self.rect.left < self.offset / 2:
             self.kill()
+
+
+class PowerUp(pygame.sprite.Sprite):
+    def __init__(self, power_type, screen_height, x_position):
+        super().__init__()
+        self.power_type = power_type
+        path = f"Graphics/power_{power_type}.png"
+        self.screen_height = screen_height
+        self.x_position = x_position
+        self.image = pygame.image.load(path)
+        self.speed = 3
+        self.rect = self.image.get_rect(topleft=(x_position, 90))
+
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.top > self.screen_height:
+            self.kill()
