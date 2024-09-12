@@ -12,6 +12,8 @@ OFFSET = 50
 GREY = (29, 29, 30)
 YELLOW = (243, 216, 63)
 
+BACKGROUND = pygame.image.load('Graphics/background.png')
+
 font = pygame.font.Font("font/monogram.ttf", 40)
 
 game = Game(screen_width, screen_height, OFFSET)
@@ -49,6 +51,8 @@ while True:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_f] and not game.run:
             game.reset()
+    # background draw
+    screen.blit(BACKGROUND, (0, 0))
 
     # update spaceship group
     if game.run:
@@ -58,9 +62,10 @@ while True:
         game.mystery_ship_group.update()
         game.power_up_group.update()
         game.check_for_collisions()
+        game.explosion_group.update()
 
     # Drawing
-    screen.fill(GREY)
+
     pygame.draw.rect(screen, YELLOW, (10, 10, 780, 780), 2, 0, 60, 60, 60, 60)
     pygame.draw.line(screen, YELLOW, (25, 730), (775, 730), 3)
 
@@ -95,6 +100,7 @@ while True:
     game.alien_lasers_group.draw(screen)
     game.mystery_ship_group.draw(screen)
     game.power_up_group.draw(screen)
+    game.explosion_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)

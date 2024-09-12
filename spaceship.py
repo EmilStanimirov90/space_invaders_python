@@ -88,7 +88,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_speed = 5
         self.laser_strength = 1
         self.laser_count = 1
-        self.laser_type = (138, 255, 161)
+        self.laser_type = 1
 
     def increase_fire_speed(self):
         if self.laser_delay > 40:

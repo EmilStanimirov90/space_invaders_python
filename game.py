@@ -1,9 +1,11 @@
 import pygame
+from pygame.examples.aliens import Explosion
+
 from laser import Laser
 from spaceship import Spaceship
 from obstacle import Obstacle
 from obstacle import grid
-from alien import Alien, MysteryShip, PowerUp
+from alien import Alien, MysteryShip, PowerUp, Explosion
 from random import choice
 
 
@@ -21,8 +23,9 @@ class Game:
         self.alien_lasers_group = pygame.sprite.Group()
         self.mystery_ship_group = pygame.sprite.GroupSingle()
         self.power_up_group = pygame.sprite.GroupSingle()
-        self.lives = 3
+        self.explosion_group = pygame.sprite.Group()
         self.run = True
+        self.lives = 3
         self.score = 0
         self.highscore = 0
         self.level = 1
@@ -103,10 +106,12 @@ class Game:
 
         self.power_up_group.add(
             PowerUp(random_power, self.screen_height, self.mystery_ship_group.sprite.rect.center[0]))
-        print(random_power)
-        print(self.mystery_ship_group.sprite.rect.center[0])
+
+    def create_explosion(self, x, y, scale):
+        self.explosion_group.add(Explosion(x, y, scale))
 
     def check_for_collisions(self):
+
         # spaceship lasers
         if self.spaceship_group.sprite.lasers_group:
             for laser_sprite in self.spaceship_group.sprite.lasers_group:
@@ -118,20 +123,27 @@ class Game:
                         self.score += alien.type * 100 * self.level
                         self.check_for_highscore()
                         self.check_level_up()
-
+                        self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 1)
+                        self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 2)
                         laser_sprite.kill()
 
                 for obstacle in self.obstacles:
                     if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
+                        self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 1)
                         laser_sprite.kill()
-                # mystery ship
 
+                # mystery ship
                 if pygame.sprite.spritecollide(laser_sprite, self.mystery_ship_group, False):
+                    self.explosion_sound.play()
                     self.score += 500 * self.level
                     self.check_for_highscore()
                     self.create_power_up()
-                    laser_sprite.kill()
+
                     self.mystery_ship_group.sprite.kill()
+                    self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 1)
+                    self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 2)
+
+                    laser_sprite.kill()
 
         # Get power UP
         if self.power_up_group:
@@ -168,12 +180,14 @@ class Game:
             for laser_sprite in self.alien_lasers_group:
                 if pygame.sprite.spritecollide(laser_sprite, self.spaceship_group, False):
                     self.shield_sound.play()
+                    self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 1)
                     laser_sprite.kill()
                     self.lives -= 1
                     if self.lives == 0:
                         self.game_over()
                 for obstacle in self.obstacles:
                     if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
+                        self.create_explosion(laser_sprite.rect[0], laser_sprite.rect[1], 1)
                         laser_sprite.kill()
 
         # ships collisions
