@@ -6,7 +6,7 @@ class Alien(pygame.sprite.Sprite):
     def __init__(self, alien_type, x, y):
         super().__init__()
         self.type = alien_type
-        path = f"Graphics/alien_{alien_type}.png"
+        path = f"Graphics/alien_{alien_type}{alien_type}.png"
         self.image = pygame.image.load(path)
         self.rect = self.image.get_rect(topleft=(x, y))
 
@@ -25,7 +25,7 @@ class MysteryShip(pygame.sprite.Sprite):
             self.speed = 3
         else:
             self.speed = -3
-        self.rect = self.image.get_rect(topleft=(x, 90))
+        self.rect = self.image.get_rect(topleft=(x, 80))
 
     def update(self):
         self.rect.x += self.speed
@@ -60,9 +60,11 @@ class Explosion(pygame.sprite.Sprite):
             path = f"Graphics/exp_{num}.png"
             img = pygame.image.load(path)
             if scale == 1:
-                img = pygame.transform.scale(img, (20, 20))
+                img = pygame.transform.scale(img, (35, 35))
             elif scale == 2:
                 img = pygame.transform.scale(img, (58, 58))
+            elif scale == 3:
+                img = pygame.transform.scale(img, (100, 100))
             self.images.append(img)
         self.index = 0
         self.image = self.images[self.index]
@@ -79,4 +81,30 @@ class Explosion(pygame.sprite.Sprite):
             self.image = self.images[self.index]
 
         if self.index >= len(self.images) - 1 and self.counter >= explosion_speed:
+            self.kill()
+
+
+class BulletExplosion(pygame.sprite.Sprite):
+
+    def __init__(self, x, y, scale):
+        super().__init__()
+
+        path = f"Graphics/bullet explosion.png"
+        self.image = pygame.image.load(path)
+        if scale == 1:
+            self.image = pygame.transform.scale(self.image, (35, 35))
+        elif scale == 2:
+            self.image = pygame.transform.scale(self.image, (58, 58))
+        elif scale == 3:
+            self.image = pygame.transform.scale(self.image, (100, 100))
+
+        self.rect = self.image.get_rect(center=(x, y))
+        self.counter = 0
+
+    def update(self):
+        explosion_speed = 5
+        self.counter += 1
+
+        if self.counter >= explosion_speed:
+            self.counter = 0
             self.kill()

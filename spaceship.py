@@ -79,6 +79,15 @@ class Spaceship(pygame.sprite.Sprite):
             if current_time - self.laser_time >= self.laser_delay:
                 self.laser_ready_fire = True
 
+    def adjust_laser_size(self):
+        if self.laser_strength == 1:
+            adjusted_laser = pygame.transform.scale(self.image, (15, 4))
+        elif self.laser_strength == 2:
+            adjusted_laser = pygame.transform.scale(self.image, (23, 6))
+        elif self.laser_strength == 3:
+            adjusted_laser = pygame.transform.scale(self.image, (35, 9))
+        return adjusted_laser
+
     def reset(self):
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height))
         self.lasers_group.empty()
@@ -104,6 +113,9 @@ class Spaceship(pygame.sprite.Sprite):
         if self.laser_count > 3:
             self.laser_count = 3
 
+    def reset_laser_count(self):
+        self.laser_count = 1
+
     def increase_laser_strength(self):
 
         self.laser_strength += 1
@@ -112,3 +124,6 @@ class Spaceship(pygame.sprite.Sprite):
 
     def change_laser_color(self):
         pass
+
+    def get_laser_strength(self):
+        return self.laser_strength
