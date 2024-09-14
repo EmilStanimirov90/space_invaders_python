@@ -63,7 +63,7 @@ while True:
         game.power_up_group.update()
         game.check_for_collisions()
         game.explosion_group.update()
-        game.bullet_explosion.update()
+        game.bullet_explosion_group.update()
 
     # Drawing
 
@@ -102,7 +102,7 @@ while True:
     game.mystery_ship_group.draw(screen)
     game.power_up_group.draw(screen)
     game.explosion_group.draw(screen)
-    game.bullet_explosion.draw(screen)
+    game.bullet_explosion_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)

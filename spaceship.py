@@ -19,6 +19,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_strength = 1
         self.laser_count = 1
         self.laser_type = 1
+        self.laser_offset = 0
 
         self.laser_sound = pygame.mixer.Sound("Sounds/plasma-shot-01.flac")
 
@@ -37,26 +38,80 @@ class Spaceship(pygame.sprite.Sprite):
             if self.laser_count == 1:
 
                 for i in range(self.laser_strength):
-                    laser = Laser(self.rect.center, self.laser_speed, self.screen_height, 1)
+                    laser = Laser(self.rect.center[0], self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height, self.laser_type, self.laser_strength , 0)
                     self.lasers_group.add(laser)
 
             elif self.laser_count == 2:
 
                 for i in range(self.laser_strength):
-                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_type)
+                    laser2 = Laser(self.rect.center[0] + 18, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height, self.laser_type, self.laser_strength ,0)
                     self.lasers_group.add(laser2)
-                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_type)
+                    laser3 = Laser(self.rect.center[0] - 18, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height, self.laser_type, self.laser_strength,0)
                     self.lasers_group.add(laser3)
 
             elif self.laser_count == 3:
 
                 for i in range(self.laser_strength):
-                    laser = Laser(self.rect.midtop, self.laser_speed, self.screen_height, self.laser_type)
+                    laser = Laser(self.rect.center[0], self.rect.center[1] - 22, self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height,
+                                  self.laser_type, self.laser_strength,0)
                     self.lasers_group.add(laser)
-                    laser2 = Laser(self.rect.midleft, self.laser_speed, self.screen_height, self.laser_type)
+                    laser2 = Laser(self.rect.center[0] + 18, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength,0)
                     self.lasers_group.add(laser2)
-                    laser3 = Laser(self.rect.midright, self.laser_speed, self.screen_height, self.laser_type)
+                    laser3 = Laser(self.rect.center[0] - 18, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength,0)
                     self.lasers_group.add(laser3)
+
+            elif self.laser_count == 4:
+                for i in range(self.laser_strength):
+                    laser = Laser(self.rect.center[0], self.rect.center[1] - 22, self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height,
+                                  self.laser_type, self.laser_strength,0)
+                    self.lasers_group.add(laser)
+                    laser2 = Laser(self.rect.center[0] + 20, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength,0)
+                    self.lasers_group.add(laser2)
+                    laser3 = Laser(self.rect.center[0] - 20, self.rect.center[1] - 20, self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength,0)
+                    self.lasers_group.add(laser3)
+                    laser4 = Laser(self.rect.center[0] + 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, -1)
+                    self.lasers_group.add(laser4)
+                    laser5 = Laser(self.rect.center[0] - 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, 1)
+                    self.lasers_group.add(laser5)
+
+            elif self.laser_count == 5:
+                for i in range(self.laser_strength):
+                    laser = Laser(self.rect.center[0], self.rect.center[1] - 22,
+                                  self.laser_offset - self.laser_strength, self.laser_speed, self.screen_height,
+                                  self.laser_type, self.laser_strength, 0)
+                    self.lasers_group.add(laser)
+                    laser2 = Laser(self.rect.center[0] + 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, 0)
+                    self.lasers_group.add(laser2)
+                    laser3 = Laser(self.rect.center[0] - 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, 0)
+                    self.lasers_group.add(laser3)
+                    laser4 = Laser(self.rect.center[0] + 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, -1)
+                    self.lasers_group.add(laser4)
+                    laser5 = Laser(self.rect.center[0] - 20, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, 1)
+                    self.lasers_group.add(laser5)
+                    laser6 = Laser(self.rect.center[0] + 22, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, -2)
+                    self.lasers_group.add(laser6)
+                    laser7 = Laser(self.rect.center[0] - 22, self.rect.center[1] - 20,
+                                   self.laser_offset - self.laser_strength, self.laser_speed,
+                                   self.screen_height, self.laser_type, self.laser_strength, 2)
+                    self.lasers_group.add(laser7)
 
             self.laser_time = pygame.time.get_ticks()
             self.laser_sound.play()
@@ -78,15 +133,6 @@ class Spaceship(pygame.sprite.Sprite):
             current_time = pygame.time.get_ticks()
             if current_time - self.laser_time >= self.laser_delay:
                 self.laser_ready_fire = True
-
-    def adjust_laser_size(self):
-        if self.laser_strength == 1:
-            adjusted_laser = pygame.transform.scale(self.image, (15, 4))
-        elif self.laser_strength == 2:
-            adjusted_laser = pygame.transform.scale(self.image, (23, 6))
-        elif self.laser_strength == 3:
-            adjusted_laser = pygame.transform.scale(self.image, (35, 9))
-        return adjusted_laser
 
     def reset(self):
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height))
@@ -110,8 +156,8 @@ class Spaceship(pygame.sprite.Sprite):
     def increase_laser_count(self):
         self.laser_count += 1
 
-        if self.laser_count > 3:
-            self.laser_count = 3
+        if self.laser_count > 5:
+            self.laser_count = 5
 
     def reset_laser_count(self):
         self.laser_count = 1

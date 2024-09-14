@@ -5,13 +5,34 @@ from random import choice
 class Alien(pygame.sprite.Sprite):
     def __init__(self, alien_type, x, y):
         super().__init__()
+        self.images = []
         self.type = alien_type
-        path = f"Graphics/alien_{alien_type}{alien_type}.png"
-        self.image = pygame.image.load(path)
+
+        for num in range(1, 5):
+            path = f"Graphics/alien_{alien_type}{num}.png"
+
+            img = pygame.image.load(path)
+            self.images.append(img)
+
+        self.index = 0
+        self.image = self.images[self.index]
         self.rect = self.image.get_rect(topleft=(x, y))
+        self.counter = 0
 
     def update(self, direction):
         self.rect.x += direction
+
+        animation_speed = 20
+        self.counter += 1
+
+        if self.counter >= animation_speed and self.index < len(self.images):
+            self.counter = 0
+            self.image = self.images[self.index]
+            self.index += 1
+
+        if self.index >= len(self.images):
+            self.index = 0
+            self.counter = 0
 
 
 class MysteryShip(pygame.sprite.Sprite):
@@ -72,7 +93,7 @@ class Explosion(pygame.sprite.Sprite):
         self.counter = 0
 
     def update(self):
-        explosion_speed = 3
+        explosion_speed = 4
         self.counter += 1
 
         if self.counter >= explosion_speed and self.index < len(self.images) - 1:
@@ -102,7 +123,7 @@ class BulletExplosion(pygame.sprite.Sprite):
         self.counter = 0
 
     def update(self):
-        explosion_speed = 5
+        explosion_speed = 3
         self.counter += 1
 
         if self.counter >= explosion_speed:
