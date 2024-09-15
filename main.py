@@ -16,8 +16,6 @@ BACKGROUND = pygame.image.load('Graphics/background.png')
 
 font = pygame.font.Font("font/monogram.ttf", 40)
 
-game = Game(screen_width, screen_height, OFFSET)
-
 level_text_surface = font.render(f"LEVEL", False, YELLOW)
 
 game_over_surface = font.render("GAME OVER", False, YELLOW)
@@ -26,6 +24,8 @@ highscore_text_surface = font.render("HIGH-SCORE", False, YELLOW)
 
 screen = pygame.display.set_mode((screen_width + OFFSET, screen_height + OFFSET * 2))
 pygame.display.set_caption("Python Space Invaderz")
+
+game = Game(screen_width, screen_height, OFFSET)
 
 clock = pygame.time.Clock()
 
@@ -65,6 +65,7 @@ while True:
         game.explosion_group.update()
         game.bullet_explosion_group.update()
 
+
     # Drawing
 
     pygame.draw.rect(screen, YELLOW, (10, 10, 780, 780), 2, 0, 60, 60, 60, 60)
@@ -103,6 +104,7 @@ while True:
     game.power_up_group.draw(screen)
     game.explosion_group.draw(screen)
     game.bullet_explosion_group.draw(screen)
+    game.hp_bar_group.draw(screen)
 
     pygame.display.update()
     clock.tick(60)

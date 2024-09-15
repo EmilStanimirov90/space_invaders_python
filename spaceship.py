@@ -8,7 +8,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.offset = offset
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.image = pygame.image.load("graphics/spaceship.png")
+        self.image = pygame.image.load("graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height))
         self.ship_move_speed = 6
         self.lasers_group = pygame.sprite.Group()
@@ -146,12 +146,16 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_type = 1
 
     def increase_fire_speed(self):
-        if self.laser_delay > 40:
+        if self.laser_delay >= 40:
             self.laser_delay -= 30
+        if self.laser_delay < 40:
+            self.laser_delay = 4
 
     def increase_laser_speed(self):
-        if self.laser_speed < 18:
-            self.laser_speed += 1
+        if self.laser_speed <= 18:
+            self.laser_speed += 2
+        if self.laser_speed > 18:
+            self.laser_speed = 18
 
     def increase_laser_count(self):
         self.laser_count += 1
